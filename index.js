@@ -6,23 +6,29 @@ var extend = require('extend')
 var VERSION = require('./package.json').version
 
 function SunsetWx (options) {
-  this.options = extend({
+  this.options = extend(true, {
     email: null,
     password: null,
     key: null,
-    base_url: 'https://sunburst.sunsetwx.com/v1/'
+    request_options: {
+      base_url: 'https://sunburst.sunsetwx.com/v1/'
+    }
   }, options)
+
+  extend( // request options we don't want overwritten
+    this.options.request_options,
+    {
+      headers: {'User-Agent': 'node-sunsetwx v' + VERSION},
+      json: true
+    }
+  )
 
   this.token = null
   this.expiry = null
   this.authRequest = null
 
-  // default request wrapper w/ user-agent and baseUrl
-  this.request = request.defaults({
-    headers: {'User-Agent': 'node-sunsetwx v' + VERSION},
-    baseUrl: this.options.base_url,
-    json: true
-  })
+  // default request wrapper w/ user-agent, json, and user options
+  this.request = request.defaults(this.options.request_options)
 }
 
 SunsetWx.prototype.register = function (callback) {

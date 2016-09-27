@@ -83,7 +83,7 @@ var sunsetwx = new SunsetWx({
 * `email`: _(required)_ the email you signed up with
 * `password`: _(required)_ the password you chose when registering
 * `key`: _(optional)_ your registration key, only required for registration
-* `base_url`: _(optional)_ an alternate base URL for the API. _(default: https://sunburst.sunsetwx.com/v1/)_
+* `request_options`: _(optional)_ options to pass to the default `request` object. Available options are listed on [the library's github page](https://github.com/request/request#requestoptions-callback). The options for `json` and the `User-Agent` header cannot be overwritten.
 
 
 ### .register(callback)
