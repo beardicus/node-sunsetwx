@@ -16,7 +16,7 @@ describe('SunsetWx', function () {
         email: null,
         password: null,
         key: null,
-        base_url: 'https://sunburst.sunsetwx.com/v1/'
+        request_options: null
       }
     })
 
@@ -36,13 +36,27 @@ describe('SunsetWx', function () {
     it('overrides default options', function () {
       var options = {
         email: 'test@example.com',
-        password: '12345'
+        password: '12345',
+        request_options: {
+          base_url: 'https://example.com',
+          headers: {
+            bar: 'baz'
+          }
+        }
       }
 
       var client = new SunsetWx(options)
 
       assert.equal(client.options.email, options.email)
       assert.equal(client.options.password, options.password)
+      assert.equal(
+        client.options.request_options.base_url,
+        options.request_options.base_url
+      )
+      assert.equal(
+        client.options.request_options.headers.bar,
+        options.request_options.headers.bar
+      )
     })
 
     it('accepts new options', function () {
