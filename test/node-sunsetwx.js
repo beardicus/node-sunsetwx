@@ -80,7 +80,26 @@ describe('SunsetWx', function () {
     })
 
     describe('Request Object', function () {
-      it('overrides default options') // TODO
+      it('overrides default options', function (done) {
+        var client = new SunsetWx({
+          request_options: {
+            headers: {'User-Agent': 'foo'}
+          }
+        })
+
+        nock('http://test').get('/').reply(200)
+
+        client.request('http://test/', function (err, response) {
+          assert.ifError(err)
+
+          var headers = response.request.headers
+
+          assert(headers.hasOwnProperty('User-Agent'))
+          assert.equal(headers['User-Agent'], 'foo')
+
+          done()
+        })
+      })
 
       it('accepts new options', function (done) {
         var client = new SunsetWx({
