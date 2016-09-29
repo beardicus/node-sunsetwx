@@ -18,7 +18,7 @@ function SunsetWx (options) {
   extend(true, // request options we don't want overwritten
     this.options.request_options,
     {
-      headers: {'User-Agent': 'node-sunsetwx v' + VERSION},
+      headers: {'User-Agent': 'node-sunsetwx/' + VERSION},
       json: true
     }
   )
