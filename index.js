@@ -11,17 +11,12 @@ function SunsetWx (options) {
     password: null,
     key: null,
     request_options: {
-      base_url: 'https://sunburst.sunsetwx.com/v1/'
+      base_url: 'https://sunburst.sunsetwx.com/v1/',
+      headers: {'User-Agent': 'node-sunsetwx/' + VERSION}
     }
   }, options)
 
-  extend(true, // request options we don't want overwritten
-    this.options.request_options,
-    {
-      headers: {'User-Agent': 'node-sunsetwx/' + VERSION},
-      json: true
-    }
-  )
+  this.options.request_options.json = true // no overwriting this one
 
   this.token = null
   this.expiry = null
